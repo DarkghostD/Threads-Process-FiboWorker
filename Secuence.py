@@ -6,20 +6,20 @@ def fibo(n):
         return n
     return fibo(n-1) + fibo(n-2)
 def main():
-    vector_length = 144
-    initial_value = 33
+    vectorLength = 144
+    initialValue = 33
     if len(sys.argv) > 1:
-        initial_value = int(sys.argv[1])
+        initialValue = int(sys.argv[1])
     # Inicializar el vector
-    vector = np.full(vector_length, initial_value)
-    print(f"Procesando un vector de longitud {vector_length} con valor inicial {initial_value}")
+    vector = np.full(vectorLength, initialValue)
+    print(f"Procesando un vector de longitud {vectorLength} con valor inicial {initialValue}")
     print("Ejecutando de forma secuencial")
     ts = time()
     # Procesar el vector secuencialmente
-    for i in range(vector_length):
+    for i in range(vectorLength):
         vector[i] = fibo(vector[i])
         print(f"Procesado elemento {i}")
-    print(f"Tiempo total de ejecución: {time() - ts:.2f} segundos")
+    print(f"Tiempo total en ejecución: {time() - ts:.2f} segundos")
     print("Primeros 10 elementos del vector procesado:", vector[:10])
     print("Últimos 10 elementos del vector procesado:", vector[-10:])
 if __name__ == "__main__":
