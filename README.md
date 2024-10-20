@@ -3,3 +3,4 @@ A partir del código proporcionado, escribe un programa en Python que procese lo
 
 Integrantes de Grupo:
 Ivan David Ausecha Salamanca (2328223)
+Sergio Andrés Rodríguez Trujillo (2372227)
