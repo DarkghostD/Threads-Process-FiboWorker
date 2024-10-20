@@ -10,43 +10,43 @@ def fibo(n):
     return fibo(n-1) + fibo(n-2)
 
 class FiboWorker(Thread):
-    def __init__(self, vector, start_index, end_index):
+    def __init__(self, vector, startIndex, endIndex):
         Thread.__init__(self)
         self.vector = vector
-        self.start_index = start_index
-        self.end_index = end_index
+        self.startIndex = startIndex
+        self.endIndex = endIndex
 
     def run(self):
-        for i in range(self.start_index, self.end_index):
+        for i in range(self.startIndex, self.endIndex):
             self.vector[i] = fibo(self.vector[i])
-        print(f"[{self.name}] Procesado desde {self.start_index} hasta {self.end_index-1}")
+        print(f"[{self.name}] Procesado desde {self.startIndex} hasta {self.endIndex-1}")
 
 def main():
-    vector_length = 144
-    initial_value = 33
+    vectorLength = 144
+    initialValue = 33
 
     if len(sys.argv) > 1:
-        initial_value = int(sys.argv[1])
+        initialValue = int(sys.argv[1])
 
     num_cpus = multiprocessing.cpu_count()
 
     # Inicializar el vector
-    vector = np.full(vector_length, initial_value)
+    vector = np.full(vectorLength, initialValue)
 
-    print(f"Procesando un vector de longitud {vector_length} con valor inicial {initial_value}")
+    print(f"Procesando un vector de longitud {vectorLength} con valor inicial {initialValue}")
     print(f"Utilizando {num_cpus} hilos")
 
     # Dividir el trabajo entre los hilos
-    chunk_size = vector_length // num_cpus
+    chunk_size = vectorLength // num_cpus
     hilos = []
 
     ts = time()
 
     for x in range(num_cpus):
-        start_index = x * chunk_size
-        end_index = start_index + chunk_size if x < num_cpus - 1 else vector_length
+        startIndex = x * chunk_size
+        endIndex = startIndex + chunk_size if x < num_cpus - 1 else vectorLength
         print(f"Trabajador {x} comienza")
-        worker = FiboWorker(vector, start_index, end_index)
+        worker = FiboWorker(vector, startIndex, endIndex)
         worker.start()
         hilos.append(worker)
 
@@ -54,7 +54,7 @@ def main():
         print(f"Esperando por trabajador {x}")
         hilo.join()
 
-    print(f"Tiempo total de ejecución: {time() - ts:.2f} segundos")
+    print(f"Tiempo de ejecución: {time() - ts:.2f} segundos")
     print("Primeros 10 elementos del vector procesado:", vector[:10])
     print("Últimos 10 elementos del vector procesado:", vector[-10:])
 
