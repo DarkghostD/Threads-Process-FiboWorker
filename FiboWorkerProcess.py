@@ -21,18 +21,18 @@ class FiboWorker(multiprocessing.Process):
         self.result_queue.put((self.startIndex, self.endIndex, self.vector[self.startIndex:self.endIndex]))
 
 def main():
-    vectorLenght = 144
+    vectorLength = 144
     initial_value = 33
     num_cpus = multiprocessing.cpu_count()
 
     # Inicializar el vector
-    vector = np.full(vectorLenght, initial_value)
+    vector = np.full(vectorLength, initial_value)
 
-    print(f"Procesando un vector de longitud {vectorLenght} con valor inicial {initial_value}")
+    print(f"Procesando un vector de longitud {vectorLength} con valor inicial {initial_value}")
     print(f"Utilizando {num_cpus} CPUs")
 
     # Dividir el trabajo entre los CPUs disponibles
-    chunk_size = vectorLenght // num_cpus
+    chunk_size = vectorLength // num_cpus
     processes = []
     result_queue = multiprocessing.Queue()
 
@@ -40,7 +40,7 @@ def main():
 
     for i in range(num_cpus):
         startIndex = i * chunk_size
-        endIndex = startIndex + chunk_size if i < num_cpus - 1 else vectorLenght
+        endIndex = startIndex + chunk_size if i < num_cpus - 1 else vectorLength
         worker = FiboWorker(vector, startIndex, endIndex, result_queue)
         processes.append(worker)
         worker.start()
